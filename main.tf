@@ -32,7 +32,6 @@ variable "image" {
 }
 
 provider "google" {
-#  credentials = "${var.gcp_credentials}"
   project     = var.gcp_project
   region      = var.gcp_region
 }
@@ -54,6 +53,10 @@ resource "google_compute_instance" "demo" {
     access_config {
       // Ephemeral IP
     }
+  }
+  
+  labels = {
+    environment = "dev"
   }
 
 }
