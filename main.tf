@@ -1,6 +1,10 @@
-# terraform {
-#   required_version = ">= 0.11.1"
-# }
+# - PROVIDER - #
+provider "google" {
+  project     = var.gcp_project
+  region      = var.gcp_region
+}
+
+# - VARIABLES - #
 
 variable "gcp_project" {
   description = "GCP project name"
@@ -31,10 +35,7 @@ variable "image" {
   default = "debian-cloud/debian-9"
 }
 
-provider "google" {
-  project     = var.gcp_project
-  region      = var.gcp_region
-}
+# - RESOURCES - #
 
 resource "google_compute_instance" "demo" {
   name         = var.instance_name
@@ -61,6 +62,8 @@ resource "google_compute_instance" "demo" {
 #   }
 
 }
+
+# - OUTPUT - #
 
 output "external_ip"{
   value = "Root Directory - ${google_compute_instance.demo.network_interface.0.access_config.0.nat_ip}"
