@@ -1,10 +1,10 @@
-terraform {
-  required_version = ">= 0.11.1"
+# - PROVIDER - #
+provider "google" {
+  project     = var.gcp_project
+  region      = var.gcp_region
 }
 
-# variable "gcp_credentials" {
-#  description = "GCP credentials needed by google provider"
-# }
+# - VARIABLES - #
 
 variable "gcp_project" {
   description = "GCP project name"
@@ -35,20 +35,16 @@ variable "image" {
   default = "debian-cloud/debian-9"
 }
 
-provider "google" {
-#  credentials = "${var.gcp_credentials}"
-  project     = "${var.gcp_project}"
-  region      = "${var.gcp_region}"
-}
+# - RESOURCES - #
 
 resource "google_compute_instance" "demo" {
-  name         = "${var.instance_name}"
-  machine_type = "${var.machine_type}"
-  zone         = "${var.gcp_zone}"
+  name         = var.instance_name
+  machine_type = var.machine_type
+  zone         = var.gcp_zone
 
   boot_disk {
     initialize_params {
-      image = "${var.image}"
+      image = var.image
     }
   }
 
@@ -59,8 +55,15 @@ resource "google_compute_instance" "demo" {
       // Ephemeral IP
     }
   }
+  
+#   labels = {
+#     name = "nyoung-instance",
+#     department = "devops"
+#   }
 
 }
+
+# - OUTPUT - #
 
 output "external_ip"{
   value = "Dev Directory - ${google_compute_instance.demo.network_interface.0.access_config.0.nat_ip}"
