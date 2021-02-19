@@ -56,7 +56,7 @@ resource "google_compute_instance" "demo" {
   }
   
   labels = {
-    environment = "dev"
+    name = "dev"
   }
 
 }
