@@ -56,10 +56,10 @@ resource "google_compute_instance" "demo" {
     }
   }
   
-#   labels = {
-#     name = "nyoung-instance",
-#     department = "devops"
-#   }
+  labels = {
+    name = "nyoung-instance",
+    department = "devops"
+  }
 
 }
 
