@@ -57,7 +57,7 @@ resource "google_compute_instance" "demo" {
   }
   
   labels = {
-    name = "nyoung-instance",
+    name = "gcp-instance",
     department = "devops"
   }
 
